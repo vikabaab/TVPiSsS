@@ -1,0 +1,3 @@
+/Users/Viktoria/CLionProjects/TVPiS/cmake-build-debug/CMakeFiles/TVPiS.dir
+/Users/Viktoria/CLionProjects/TVPiS/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/Viktoria/CLionProjects/TVPiS/cmake-build-debug/CMakeFiles/rebuild_cache.dir
