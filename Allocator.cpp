@@ -1,6 +1,3 @@
-//
-// Created by Viktoria on 14.05.2022.
-//
 #include <iostream>
 #include <list>
 #include <vector>
@@ -74,8 +71,8 @@ public:
         return realAddress;
     }
 
-    void PutObject() {
-        *realAddress = T();
+    void PutObjectInArray(int index) {
+        new(realAddress + index) T();
     }
 
     bool operator==(const ClientMemoryBlock<T>& rhs)
@@ -218,7 +215,7 @@ class Allocator {
 private:
     std::vector<Segment> segments{};
 
-    const unsigned int maxSegmentSize = 1024;
+    const unsigned int maxSegmentSize = 2048;
 
 public:
     void PrintAllSegments() {

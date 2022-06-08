@@ -10,8 +10,6 @@
 #include "include.hpp"
 
 namespace ft {
-
-
     template<typename T>
     class List {
     public:
@@ -31,7 +29,6 @@ namespace ft {
 
         _Node_pointer allocate_node(const value_type &x = {}) {
             auto ptr = allocator_.Allocate<List_node<T>>(sizeof(List_node<T>));
-            ptr.PutObject();
             ptr.GetObject()->data = x;
 
             return ptr;
@@ -48,7 +45,7 @@ namespace ft {
 
             --size_;
         }
-        void make_connection( _Node_pointer prev, _Node_pointer next) {
+        void make_connection(_Node_pointer prev, _Node_pointer next) {
             prev.GetObject()->next = next;
             next.GetObject()->prev = prev;
         }
@@ -57,8 +54,7 @@ namespace ft {
             make_connection(to_insert, next);
         }
     public:
-
-         //Constructor and destructors
+        // Constructor and destructors
         List() : size_(0), allocator_(Allocator()) {
             node_ = allocate_node(T{});
             node_.GetObject()->next = node_;
@@ -93,16 +89,14 @@ namespace ft {
             return (node_.GetObject()->prev).GetObject()->data;
         }
 
-
         // Capacity functions
-        bool empty() const {
+        [[nodiscard]] bool empty() const {
             return !size_;
         }
 
-        size_type size() const {
+        [[nodiscard]] size_type size() const {
             return size_;
         }
-
 
         // Modifiers
         void clear() {
@@ -112,8 +106,28 @@ namespace ft {
                 destroy_node(ptr);
                 ptr = tmp;
             }
+
             node_.GetObject()->next = node_;
             node_.GetObject()->prev = node_;
+        }
+
+        _Node_pointer getNode(int pos) const {
+            auto tmpNode = this->node_;
+            while (pos-- >= 0) {
+                tmpNode = tmpNode.GetObject()->next;
+            }
+
+            return tmpNode;
+        }
+
+        void erase(int pos) {
+            _Node_pointer ptr = getNode(pos);
+            make_connection(ptr.GetObject()->prev, ptr.GetObject()->next);
+            destroy_node(ptr);
+        }
+
+        T operator[](size_type pos) const {
+            return getNode(pos).GetObject()->data;
         }
 
         void push_back(const T &value) {
@@ -147,6 +161,20 @@ namespace ft {
                     pop_back();
                 }
             }
+        }
+
+        List &operator=(const List &other) {
+            if (this != &other) {
+                clear();
+
+                size_ = 0;
+
+                for (auto i = 0; i != other.size_; ++i) {
+                    push_back(other[i]);
+                }
+            }
+
+            return *this;
         }
     };
 

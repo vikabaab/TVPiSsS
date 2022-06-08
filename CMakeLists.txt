@@ -3,4 +3,4 @@ project(TVPiS)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(TVPiS main.cpp Allocator.cpp include.hpp List.hpp ListNode.hpp Deque.hpp Queue.hpp Stack.hpp Utils.hpp HashTable.hpp)
+add_executable(TVPiS main.cpp Allocator.cpp include.hpp List.hpp ListNode.hpp Deque.hpp Queue.hpp Stack.hpp Utils.hpp HashTable.hpp Lexer.hpp poliz.hpp Translator.hpp RecursiveParser.hpp Reader.hpp)
